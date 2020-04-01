@@ -1,5 +1,5 @@
 <?php
-namespace Deepdivedylan\DataDesign;
+namespace CNewsome2\ObjectOriented;
 /**
  * Trait to Validate a mySQL Date
  *
@@ -50,7 +50,7 @@ trait ValidateDate {
 	}
 	private static function validateTime(string $newTime) : string {
 		$newTime = trim($newTime);
-		if((preg_match("/^(\d{2}):(\d{2}):(\d{2})(?(?=\.)\.(\d{1,6}))$/", $newTime, $matches)) !== 1) {
+		if(1 !== (preg_match("/^(\d{2}):(\d{2}):(\d{2})(?(?=\.)\.(\d{1,6}))$/", $newTime, $matches))) {
 			throw(new \InvalidArgumentException("time is not a valid time"));
 		}
 		// verify the date is really a valid calendar date

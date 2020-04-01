@@ -4,9 +4,10 @@ namespace CNewsome2\ObjectOriented;
 require_once("autoload.php");
 require_once(dirname(__DIR__) . "/vendor/autoload.php");
 
+use mysql_xdevapi\TableInsert;
 use Ramsey\Uuid\Uuid;
 
-class author {
+class Author {
 	use ValidateUuid;
 
 	private $authorId;
@@ -22,11 +23,11 @@ class author {
 	private $authorUsername;
 
 	//constructor method
-	public function __construct($authorId, $newAuthorActivationToken, $newAvatarUrl, $newAuthorEmail, $newAuthorHash, $newAuthorUsername) {
+	public function __construct($newAuthorId, $newAuthorActivationToken, $newAuthorAvatarUrl, $newAuthorEmail, $newAuthorHash, $newAuthorUsername) {
 		try {
-			$this->setAuthorId($authorId);
-			$this->setnewAuthorActivationToken($newAuthorActivationToken);
-			$this->setnewAvatarUrl($newAvatarUrl);
+			$this->setAuthorId($newAuthorId);
+			$this->setAuthorActivationToken($newAuthorActivationToken);
+			$this->setAuthorAvatarUrl($newAuthorAvatarUrl);
 			$this->setNewAuthorEmail($newAuthorEmail);
 			$this->setAuthorHash($newAuthorHash);
 			$this->setAuthorUsername($newAuthorUsername);
@@ -36,8 +37,6 @@ class author {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
-
-	//mutator method
 
 	public function setAuthorId($newAuthorId): void {
 		try {
@@ -50,7 +49,11 @@ class author {
 		}
 	}
 
-	public function setNewAuthorActivationToken($newAuthorActivationToken): void {
+	public function getAuthorId() : Uuid {
+		return($this->authorId);
+	}
+
+	public function setAuthorActivationToken($newAuthorActivationToken): void {
 		try {
 			$uuid = self::validateUuid($newAuthorActivationToken);
 
@@ -61,15 +64,23 @@ class author {
 		}
 	}
 
-	public function setNewAvatarUrl($newAvatarUrl): void {
+	public function getAuthorActivationToken() : Uuid {
+		return($this->authorActivationToken);
+	}
+
+	public function setAuthorAvatarUrl($newAuthorAvatarUrl): void {
 		try {
-			$uuid = self::validateUuid($newAvatarUrl);
+			$uuid = self::validateUuid($newAuthorAvatarUrl);
 
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+	}
+
+	public function getAuthorAvatarUrl() : Uuid {
+		return($this->authorAvatarUrl);
 	}
 
 	public function setNewAuthorEmail($newAuthorEmail): void {
@@ -83,6 +94,10 @@ class author {
 		}
 	}
 
+	public function getAuthorEmail() : Uuid {
+		return($this->authorEmail);
+	}
+
 	public function setAuthorHash($newAuthorId): void {
 		try {
 			$uuid = self::validateUuid($newAuthorId);
@@ -94,6 +109,10 @@ class author {
 		}
 	}
 
+	public function getAuthorHash() : Uuid {
+		return($this->authorHash);
+	}
+
 	public function setAuthorUsername($newAuthorUsername): void {
 		try {
 			$uuid = self::validateUuid($newAuthorUsername);
@@ -103,34 +122,46 @@ class author {
 
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-}
-
-//accessor method
-
-	public function getAuthorId() : Uuid {
-		return($this->AuthorId);
 	}
 
-	public function getAuthorActivationToken() : Uuid {
-		return($this->authorActivationToken);
-	}
-
-	public function getAuthorUrl() : Uuid {
-		return($this->authorAvatarUrl);
-	}
-
-	public function getAuthorEmail() : Uuid {
-		return($this->authorEmail);
-	}
-
-	public function getAuthorHash() : Uuid {
-		return($this->authorHash);
-	}
 	public function getAuthorUsername() : Uuid {
 		return($this->authorUsername);
 	}
 }
 
+//Insert statement
 
+/*INSERT INTO author (authorId, authorActivationToken, authorAvatarUrl, authorEmail, authorUsername);
+VALUES (:authorId, :authorActivationToken, :authorAvatarUrl, :authorEmail, authorUsername);
 
+//Update Statement
 
+UPDATE author
+SET authorActivationToken = :authorActivationToken,
+	authorAvatarUrl = :authorAvatarUrl,
+	authorEmail = :authorEmail,
+	authorUsername = :authorUsername;
+
+WHERE authorId = someAuthorId,
+	authorActivationToken = someAuthorActivationToken,
+	authorAvatarUrl = someAvatarUrl,
+	authorEmail = someAuthorEmail,
+	authorUsername = someAuthorUsername;
+
+//Delete Statement
+DELETE FROM author
+WHERE authorId = someauthorId,
+	authorActivationToken = someAuthorActivationToken,
+	authorAvatarUrl = someAvatarUrl,
+	authorEmail = someAuthorEmail,
+	authorUsername = someAuthorUsername;
+
+//Foo By Bar
+SELECT authorId, authorActivationToken, authorAvatarUrl, authorEmail, authorUsername
+WHERE
+	authorId = someAuthorId,
+	authorActivationToken = someAuthorActivationToken,
+	authorAvatarUrl = someAvatarUrl,
+	authorEmail = someAuthorEmail,
+	authorUsername = someAuthorUsername;
+*/
