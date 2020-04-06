@@ -1,12 +1,13 @@
 <?php
 namespace CNewsome2\ObjectOriented;
 
-require_once("autoload.php");
-require_once(dirname(__DIR__) . "/vendor/autoload.php");
+require_once ("autoload.php");
+require_once(dirname(__DIR__,1) . "/Classes/Author.php");
 
 
 use http\Encoding\Stream;
 use Ramsey\Uuid\Uuid;
+
 /*
 This is a class made for registering books in a library or book stored
 @author Francisco Gallegos <fgallegos59@cnm.edu>
