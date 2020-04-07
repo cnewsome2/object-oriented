@@ -1,34 +1,24 @@
 <?php
-//require_once("/etc/apache2/capstone-mysql/Secrets.php");
-//$secrets =  new Secrets("/etc/apache2/capstone-mysql/cohort28/CNewsome2.ini");
-//$pdo = $secrets->getPdoObject();
-//require_once("/etc/apache2/capstone-mysql/Secrets.php");
-
 require_once (dirname(__DIR__,1)."/Classes/Author.php");
 //use Author;
-$password = "$\skull_skunk_%year";
-$authorHash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 45]);
-//$authorHash = "hash1235676ghg91gothamhash";
 
-$authorId = "3134e90a-e3a5-4df2-abff-7cc7d8324530";
+function bar () {
 
-$authorActivationToken = 'o9AbabiSlayerjkGE9xo9ZFoTGE9x750';
+	$authorId = "3134e90a-e3a5-4df2-abff-7cc7d8324530";
 
-$authorAvatarUrl = "https://avars.discourse.org/v4/letter/m/a8b319/squad4.png";
+	$authorActivationToken = 'o9Ab6bi0la4erYkGE9xo9ZFoTGE9x750';
 
-$authorUsername = "Andre3000";
+	$authorAvatarUrl = "https://avatars.com";
 
-$authorEmail = "Aundre@cnm.edu";
+	$authorHash = "3ce7418e3ce7418e3ce7418e3ce7418e";
 
-$author = new CNewsome2\ObjectOriented\Author($authorId, $authorActivationToken, $authorAvatarUrl, $authorEmail, $authorHash, $authorUsername);
-var_dump($author);
-//$author->insert($pdo);
-//$authors = Author::getAllAuthor($pdo);
-//$authors =  $author->getAllAuthor($pdo);
-//var_dump($authors);
-//$author->delete($pdo);
-//Author::getAllAuthor($pdo);
-//$author->getAuthor $authorId);
-//$authors->getAllAuthor($pdo);
-//var_dump($author->getAuthor($pdo, $authorId));
+	$authorUsername = "David21";
 
+	$authorEmail = "David21@gmail.com";
+
+	$author = new CNewsome2\ObjectOriented\Author($authorId, $authorActivationToken, $authorAvatarUrl, $authorEmail, $authorHash, $authorUsername);
+	var_dump($author);
+	echo "$authorEmail, $authorActivationToken, $authorHash";
+}
+
+bar();

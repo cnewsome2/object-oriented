@@ -1,6 +1,6 @@
 <?php
 namespace CNewsome2\ObjectOriented;
-require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+require_once(dirname(__DIR__, 1) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
  * Trait to validate a uuid
@@ -15,6 +15,14 @@ use Ramsey\Uuid\Uuid;
  * @package Edu\Cnm\Misquote
  **/
 trait ValidateUuid {
+	/**
+	 * validates a uuid irrespective of format
+	 *
+	 * @param string|Uuid $newUuid uuid to validate
+	 * @return Uuid object with validated uuid
+	 * @throws \InvalidArgumentException if $newUuid is not a valid uuid
+	 * @throws \RangeException if $newUuid is not a valid uuid v4
+	 **/
 	private static function validateUuid($newUuid) : Uuid {
 		// verify a string uuid
 		if(gettype($newUuid) === "string") {
