@@ -55,12 +55,12 @@ class Author implements \JsonSerializable {
 
 	/**
 	 * Author constructor.
-	 * @param string|Uuid $authorId id of this Author or null if a new Author
-	 * @param string $authorActivationToken
-	 * @param string $authorAvatarUrl
-	 * @param string $authorEmail
-	 * @param string $authorHash
-	 * @param string $authorUsername
+	 * @param string|Uuid $newAuthorId id of this Author or null if a new Author
+	 * @param string $newAuthorActivationToken
+	 * @param string $newAuthorAvatarUrl
+	 * @param string $newAuthorEmail
+	 * @param string $newAuthorHash
+	 * @param string $newAuthorUsername
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds
 	 * @throws \TypeError if data types violate type hints
