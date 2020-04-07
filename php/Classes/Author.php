@@ -9,34 +9,72 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Author Class
- * @package CNewsome2\ObjectOriented <cnewsome2@cnm.edu>
+ * @author CNewsome2 <cnewsome2@cnm.edu>
  */
 
 class Author implements \JsonSerializable {
-	use ValidateUuid;
-	use ValidateDate;
 
+	use ValidateUuid;
+	/**
+	 * id for this Author; this is the primary key
+	 * @var Uuid $authorId
+	 */
 	private $authorId;
 
+	/**
+	 * activation token for this Author
+	 * @var string $authorActivationToken
+	 */
 	private $authorActivationToken;
 
+	/**
+	 * avatar url for Author
+	 * @var string $authorAvatarUrl
+	 */
 	private $authorAvatarUrl;
+
+	/**
+	 * email for this Author
+	 * @var string $authorAvatarUrl
+	 */
 
 	private $authorEmail;
 
+	/**hash for author
+	 * @var string $authorEmail
+	 */
+
 	private $authorHash;
+
+	/**
+	 * username for this Author
+	 * @var string $authorUsername
+	 */
 
 	private $authorUsername;
 
-	//constructor method
+	/**
+	 * Author constructor.
+	 * @param string|Uuid $authorId id of this Author or null if a new Author
+	 * @param string $authorActivationToken
+	 * @param string $authorAvatarUrl
+	 * @param string $authorEmail
+	 * @param string $authorHash
+	 * @param string $authorUsername
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 */
 
-	public function __construct($newAuthorId, $newAuthorActivationToken, $newAuthorEmail, $newAuthorHash, $newAuthorAvatarUrl, $newAuthorUsername) {
+	public function __construct($newAuthorId, string $newAuthorActivationToken,?string $newAuthorAvatarUrl,string $newAuthorEmail,string $newAuthorHash, $newAuthorUsername) {
 		try {
 			$this->setAuthorId($newAuthorId);
 			$this->setAuthorActivationToken($newAuthorActivationToken);
+			$this->setAuthorAvatarUrl($newAuthorAvatarUrl);
 			$this->setAuthorEmail($newAuthorEmail);
 			$this->setAuthorHash($newAuthorHash);
-			$this->setAuthorAvatarUrl($newAuthorAvatarUrl);
 			$this->setAuthorUsername($newAuthorUsername);
 		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -66,28 +104,28 @@ class Author implements \JsonSerializable {
 
 	//accessor method
 
-	public function getAuthorActivationToken($newAuthorActivationToken) {
+	public function getAuthorActivationToken($authorActivationToken) {
 		return ($this->authorActivationToken);
 	}
 
 	//mutator method
 
-	public function setAuthorActivationToken($newAuthorActivationToken): void {
-		if($newAuthorActivationToken === null) {
+	public function setAuthorActivationToken($authorActivationToken): void {
+		if($authorActivationToken === null) {
 			$this->authorActivationToken = null;
 			return;
 		}
 
-		$newAuthorActivationToken = strtolower(trim($newAuthorActivationToken));
-		if(ctype_xdigit($newAuthorActivationToken) === false) {
+		$authorActivationToken = strtolower(trim($authorActivationToken));
+		if(ctype_xdigit($authorActivationToken) === false) {
 			throw(new\RangeException("user activation is not valid"));
 		}
 
 		//make sure user activation token is only 32 characters
-		if(strlen($newAuthorActivationToken) !== 32) {
+		if(strlen($authorActivationToken) !== 32) {
 			throw(new\RangeException("user activation token has to be 32"));
 		}
-		$this->authorActivationToken = $newAuthorActivationToken;
+		$this->authorActivationToken = $authorActivationToken;
 	}
 
 	//accessor method
