@@ -1,24 +1,20 @@
 <?php
+
+namespace CNewsome2\ObjectOriented;
 require_once (dirname(__DIR__,1)."/Classes/Author.php");
-//use Author;
 
-function bar () {
 
-	$authorId = "3134e90a-e3a5-4df2-abff-7cc7d8324530";
+$secrets = new\Secrets("\etc\apache2\capstone-mysql\ddctwitter.ini");
+$pdo = $secrets->getPdoObject();
 
-	$authorActivationToken = 'o9Ab6bi0la4erYkGE9xo9ZFoTGE9x750';
+	$authorId = "0a64a02c-885c-4ccf-8a28-2e1af3cfb84d";
+	$authorActivationToken = bin2hex(random_bytes(16));
+	$authorAvatarUrl = "https://dazedimg-dazedgroup.netdna-ssl.com/1050/azure/dazed-prod/1280/8/1288392.jpg";
+	$authorEmail = "TigerMan@aol.com";
+	$authorHash = password_hash("password", PASSWORD_ARGON2ID, ["time_cost" => 9]);;
+	$authorUsername = "JoeExotic";
 
-	$authorAvatarUrl = "https://avatars.com";
+	$author = new Author($authorId, $authorActivationToken, $authorAvatarUrl, $authorEmail, $authorHash, $authorUsername);
 
-	$authorHash = "3ce7418e3ce7418e3ce7418e3ce7418e";
-
-	$authorUsername = "David21";
-
-	$authorEmail = "David21@gmail.com";
-
-	$author = new CNewsome2\ObjectOriented\Author($authorId, $authorActivationToken, $authorAvatarUrl, $authorEmail, $authorHash, $authorUsername);
 	var_dump($author);
-	echo "$authorEmail, $authorActivationToken, $authorHash";
-}
 
-bar();
