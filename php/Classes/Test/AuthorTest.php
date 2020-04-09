@@ -1,7 +1,7 @@
 <?php
 namespace CNewsome2\ObjectOriented\Test;
 
-use CNewsome2\ObjectOriented\{Author};
+use CNewsome2\ObjectOriented\Author;
 
 //TODO remember to add this class to my Test class!!!
 ///Hack!! - added so this class could see DataDesignTest
@@ -41,18 +41,33 @@ class AuthorTest extends DataDesignTest {
 
 
 	public function testInsertValidAuthor(): void {
+		//get count of author records in db before we run the test.
+		$numRows = $this->getConnection()->getRowCount("author");
+
+		//insert an author record in the db
+		$authorId = generateUuidV4()->toString();
+		$author = new Author($authorId, $this->VALID_ACTIVATION_TOKEN, $this->VALID_AVATAR_URL, $this->VALID_AUTHOR_EMAIL, $this->VALID_AUTHOR_HASH, $this->VALID_USERNAME);
+		$author->insert($this->getPDO());
+
+
+		//check count of author records in the db after the insert
+		$numRowsAfterInsert = $this->getConnection()->getRowCount("author");
+		self::assertEquals($numRows + 1 , $numRowsAfterInsert);
+
+		//get a copy of the record just inserted and validate the values
+		// make sure the values that went into the record are the same ones that come out.
 	}
 
-	public function testDeleteValidAuthor(): void {
-	}
-
-	public function testUpdateValidAuthor(): void {
-	}
-
-	public function testGetValidAuthorByAuthorId(): void {
-	}
-
-	public function testGetAuthorbyAuthorUsername(): void {
-	}
+//	public function testDeleteValidAuthor(): void {
+//	}
+//
+//	public function testUpdateValidAuthor(): void {
+//	}
+//
+//	public function testGetValidAuthorByAuthorId(): void {
+//	}
+//
+//	public function testGetAuthorbyAuthorUsername(): void {
+//	}
 }
 

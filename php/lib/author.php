@@ -11,7 +11,7 @@ $pdo = $secrets->getPdoObject();
 	$authorActivationToken = bin2hex(random_bytes(16));
 	$authorAvatarUrl = "https://dazedimg-dazedgroup.netdna-ssl.com/1050/azure/dazed-prod/1280/8/1288392.jpg";
 	$authorEmail = "TigerMan@aol.com";
-	$authorHash = password_hash("password", PASSWORD_ARGON2ID, ["time_cost" => 9]);
+	$authorHash = password_hash("password", PASSWORD_ARGON2ID, ["time_cost" => 9]);;
 	$authorUsername = "JoeExotic";
 
 	$author = new Author($authorId, $authorActivationToken, $authorAvatarUrl, $authorEmail, $authorHash, $authorUsername);
