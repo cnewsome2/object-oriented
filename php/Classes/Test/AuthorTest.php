@@ -56,13 +56,68 @@ class AuthorTest extends DataDesignTest {
 
 		//get a copy of the record just inserted and validate the values
 		// make sure the values that went into the record are the same ones that come out.
+		$pdoAuthor = Author::getAuthorByAuthorId($this->getPDO(), $author->getAuthorId()->toString());
+		self::assertEquals($authorId, $pdoAuthor->getAuthorId()) ;
+		self::assertEquals($this->VALID_ACTIVATION_TOKEN, $pdoAuthor->getAuthorActivationToken());
+		self::assertEquals($this->VALID_AVATAR_URL, $pdoAuthor->getAuthorAvatarUrl());
+		self::assertEquals($this->VALID_AUTHOR_EMAIL, $pdoAuthor->getAuthorEmail());
+		self::assertEquals($this->VALID_AUTHOR_HASH, $pdoAuthor->getAuthorHash());
+		self::assertEquals($this->VALID_USERNAME, $pdoAuthor->getAuthorUsername());
+
+ }
+
+	public function testUpdateValidAuthor(): void {
+		//get count of author records in db before we run the test.
+		$numRows = $this->getConnection()->getRowCount("author");
+
+		//insert an author record in the db
+		$authorId = generateUuidV4()->toString();
+		$author = new Author($authorId, $this->VALID_ACTIVATION_TOKEN, $this->VALID_AVATAR_URL, $this->VALID_AUTHOR_EMAIL, $this->VALID_AUTHOR_HASH, $this->VALID_USERNAME);
+		$author->insert($this->getPDO());
+
+		//update a value on the record I just inserted
+		$changedAuthorUsername = $this->VALID_USERNAME . "changed";
+		$author->setAuthorUsername($changedAuthorUsername);
+		$author->update($this->getPDO());
+
+
+		//check count of author records in the db after the insert
+		$numRowsAfterInsert = $this->getConnection()->getRowCount("author");
+		self::assertEquals($numRows + 1 , $numRowsAfterInsert);
+
+		//get a copy of the record just inserted and validate the values
+		// make sure the values that went into the record are the same ones that come out.
+		$pdoAuthor = Author::getAuthorByAuthorId($this->getPDO(), $author->getAuthorId()->toString());
+		self::assertEquals($authorId, $pdoAuthor->getAuthorId()) ;
+		self::assertEquals($this->VALID_ACTIVATION_TOKEN, $pdoAuthor->getAuthorActivationToken());
+		self::assertEquals($this->VALID_AVATAR_URL, $pdoAuthor->getAuthorAvatarUrl());
+		self::assertEquals($this->VALID_AUTHOR_EMAIL, $pdoAuthor->getAuthorEmail());
+		self::assertEquals($this->VALID_AUTHOR_HASH, $pdoAuthor->getAuthorHash());
+		self::assertEquals($$changedAuthorUsername, $pdoAuthor->getAuthorUsername());
 	}
 
-//	public function testDeleteValidAuthor(): void {
-//	}
-//
-//	public function testUpdateValidAuthor(): void {
-//	}
+	public function testDeleteValidAuthor(): void {
+		//get count of author records in db before we run the test.
+		$numRows = $this->getConnection()->getRowCount("author");
+
+		//insert an author record in the db
+		$authorId = generateUuidV4()->toString();
+		$author = new Author($authorId, $this->VALID_ACTIVATION_TOKEN, $this->VALID_AVATAR_URL, $this->VALID_AUTHOR_EMAIL, $this->VALID_AUTHOR_HASH, $this->VALID_USERNAME);
+		$author->insert($this->getPDO());
+
+
+		//check count of author records in the db after the insert
+		$numRowsAfterInsert = $this->getConnection()->getRowCount("author");
+		self::assertEquals($numRows + 1 , $numRowsAfterInsert);
+
+		//check count of author records in the db after the insert
+
+		//now delete the record we just inserted
+
+		//try to get the record. It should not exist
+
+
+	}
 //
 //	public function testGetValidAuthorByAuthorId(): void {
 //	}

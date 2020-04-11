@@ -69,7 +69,7 @@ class Author implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 */
 
-	public function __construct($newAuthorId, string $newAuthorActivationToken, ?string $newAuthorAvatarUrl, string $newAuthorEmail, string $newAuthorHash, $newAuthorUsername) {
+	public function __construct($newAuthorId, string $newAuthorActivationToken, ?string $newAuthorAvatarUrl, string $newAuthorEmail, string $newAuthorHash, string $newAuthorUsername) {
 		try {
 			$this->setAuthorId($newAuthorId);
 			$this->setAuthorActivationToken($newAuthorActivationToken);
@@ -351,11 +351,17 @@ class Author implements \JsonSerializable {
 
 	public function update(\PDO $pdo) : void {
 	//create query template
-	$query = "UPDATE author SET authorActivationToken = :authorActivationToken, authorAvatarUrl = :authorAvatarUrl, authorEmail = :authorEmail, authorHash = :authorHash, authorUserName = :authorUserName WHERE authorId = authorId";
+	$query = "UPDATE author SET authorActivationToken = :authorActivationToken, authorAvatarUrl = :authorAvatarUrl, authorEmail = :authorEmail, 
+    									authorHash = :authorHash, authorUserName = :authorUserName WHERE authorId = authorId";
 	$statement = $pdo->prepare($query);
 
 	//bind the member variables to the place holders in the template
-	$parameters = ["authorId"=>$this->authorId->getBytes(), "authorActivationToken"=> $this->authorActivationToken, "authorAvatarUrl"=> $this->authorAvatarUrl, "authorEmail"=> $this->authorEmail, "authorHash"=> $this->authorHash, "authorUsername"=> $this->authorUsername];
+	$parameters = ["authorId"=>$this->authorId->getBytes(),
+						"authorActivationToken"=> $this->authorActivationToken,
+						"authorAvatarUrl"=> $this->authorAvatarUrl,
+						"authorEmail"=> $this->authorEmail,
+						"authorHash"=> $this->authorHash,
+						"authorUsername"=> $this->authorUsername];
 	$statement->execute($parameters);
 }
 
@@ -406,7 +412,8 @@ class Author implements \JsonSerializable {
 	 * get authorByAuthorId from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $authorId author Id
+	 * @param Uuid|string $authorId
+	 * @param string $authorUsername
 	 * @return Author|null Author found or null if not found
 	 * @throws \PDOException when my SQL related
 	 * @throws \TypeError when a variable are not the correct data type
